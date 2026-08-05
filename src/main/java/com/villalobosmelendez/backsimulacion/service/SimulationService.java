@@ -115,4 +115,42 @@ public class SimulationService {
             System.out.println("🏁 Simulación finalizada. Todos los camiones llegaron a su destino.");
         }
     }
+
+    public String generarReporteHeuristico() {
+        if (flota.isEmpty()) return "La simulación aún no ha iniciado.";
+
+        StringBuilder reporte = new StringBuilder();
+        double sumaPromediosFlota = 0;
+        int camionesValidos = 0;
+
+        for (Camion c : flota) {
+            List<Double> velocidades = c.getRegistroVelocidades();
+            if (velocidades.isEmpty()) continue;
+
+            double min = velocidades.stream().min(Double::compareTo).orElse(0.0);
+            double max = velocidades.stream().max(Double::compareTo).orElse(0.0);
+            double sum = velocidades.stream().mapToDouble(Double::doubleValue).sum();
+            double avg = sum / velocidades.size();
+
+            sumaPromediosFlota += avg;
+            camionesValidos++;
+
+            reporte.append(String.format("Camión %s - Muestras: %d | Min: %.2f km/h | Max: %.2f km/h | Promedio: %.2f km/h\n",
+                    c.getId(), velocidades.size(), min, max, avg));
+        }
+
+        if (camionesValidos > 0) {
+            double promedioFlota = sumaPromediosFlota / camionesValidos;
+            reporte.append("\n=== Análisis de la Flota ===\n");
+            reporte.append(String.format("La velocidad promedio de toda la flota fue de %.2f km/h. ", promedioFlota));
+
+            for (Camion c : flota) {
+                if (c.getRegistroVelocidades().size() < 10) {
+                    reporte.append(String.format("Advertencia: El camión %s tiene muy pocas muestras para un análisis preciso. ", c.getId()));
+                }
+            }
+        }
+
+        return reporte.toString();
+    }
 }

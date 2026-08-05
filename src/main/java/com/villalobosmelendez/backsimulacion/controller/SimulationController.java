@@ -35,4 +35,9 @@ public class SimulationController {
     public ResponseEntity<List<Camion>> getEstadoFlota() {
         return ResponseEntity.ok(simulationService.getEstadoFlota());
     }
+
+    @GetMapping("/reporte")
+    public ResponseEntity<String> getReporte() {
+        return ResponseEntity.ok(simulationService.generarReporteHeuristico());
+    }
 }
