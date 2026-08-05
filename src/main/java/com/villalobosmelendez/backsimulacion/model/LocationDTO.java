@@ -8,6 +8,6 @@ import java.util.List;
 public class LocationDTO {
     private Integer id;
     private String name;
-    private List<Double> coordinates;
+    private List<Double> coor;
     private Integer radio;
 }

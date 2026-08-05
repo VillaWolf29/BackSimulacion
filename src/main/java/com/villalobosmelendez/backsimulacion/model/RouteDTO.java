@@ -6,8 +6,8 @@ import java.util.List;
 
 @Data
 public class RouteDTO {
-    private Integer idTrmCs;
-    private String nombreTramo;
+    private Integer id_trm_cs;
+    private String nombre_tramo;
     private String color;
     private List<List<Double>> points;
 }

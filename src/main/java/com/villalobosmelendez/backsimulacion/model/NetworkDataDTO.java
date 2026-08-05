@@ -6,8 +6,8 @@ import java.util.List;
 
 @Data
 public class NetworkDataDTO {
-    private List<RouteDTO> routes;
-    private List<LocationDTO> load;
-    private List<LocationDTO> dump;
+    private List<RouteDTO> Routes;
+    private List<LocationDTO> Load;
+    private List<LocationDTO> Dump;
 
 }
